@@ -11,7 +11,7 @@ import java.util.List;
 @RequestMapping(value = "/api/food",produces = "application/json")
 
 public class FoodController {
-
+//test
     @Qualifier("foodServiceimpl")
     @Autowired
    private IFoodService foodService ;
