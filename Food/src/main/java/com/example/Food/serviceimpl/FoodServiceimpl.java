@@ -1,7 +1,9 @@
 package com.example.Food.serviceimpl;
 
 import com.example.Food.dao.IFoodDao;
+import com.example.Food.entity.FoodEntity;
 import com.example.Food.model.Food;
+import com.example.Food.model.dto.FoodDto;
 import com.example.Food.service.IFoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,38 +22,59 @@ public class FoodServiceimpl implements IFoodService {
 
 
     @Override
-    public List<Food> getList() {
-        return foodDao.getList();
+    public List<FoodEntity> getAllList() {
+        return getAllList();
     }
 
     @Override
-    public Food create(Food food) {
-        Date newDate = new Date();
-        String pattern = "dd-MMM-yyyy HH:mm";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        String date = simpleDateFormat.format(newDate);
-        food.setCreateDate(date);
-        return foodDao.create(food);
-    }
-
-    @Override
-    public Food update(Food food) {
-        Date newDate = new Date();
-        String pattern = "dd-MMM-yyyy HH:mm";
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
-        String date = simpleDateFormat.format(newDate);
-        food.setLastModifiedDate(date);
-        return foodDao.update(food);
-
-    }
-
-    @Override
-    public String delete(Integer id) {
-        int status = foodDao.delete(id);
-        if(status == 1 ){
-            return "islem basarılı";
-
+    public FoodEntity createOrUpdate(FoodDto foodDto) {
+        FoodEntity foodEntity = null;
+        if(foodDto.getId() != null) { // id içi boş değilse güncelleme
+            foodEntity = foodDao.getById(foodDto.getId());
+        }else {
+            foodEntity = new FoodEntity();
+            foodEntity.setCreateDate(new Date());
         }
-        return "islem basarısız";
+        foodEntity.setTitle(foodDto.getTitle());
+        foodEntity.setDescription(foodDto.getDescription());
+        foodEntity.setFoodDetails(foodDto.getFoodDetails());
+        return foodDao.createOrUpdate(foodEntity);
+
+
     }
 }
+//    @Override
+//    public List<Food> getList() {
+//        return foodDao.getList();
+//    }
+//
+//    @Override
+//    public Food create(Food food) {
+//        Date newDate = new Date();
+//        String pattern = "dd-MMM-yyyy HH:mm";
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+//        String date = simpleDateFormat.format(newDate);
+//        food.setCreateDate(date);
+//        return foodDao.create(food);
+//    }
+//
+//    @Override
+//    public Food update(Food food) {
+//        Date newDate = new Date();
+//        String pattern = "dd-MMM-yyyy HH:mm";
+//        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+//        String date = simpleDateFormat.format(newDate);
+//        food.setLastModifiedDate(date);
+//        return foodDao.update(food);
+//
+//    }
+//
+//    @Override
+//    public String delete(Integer id) {
+//        int status = foodDao.delete(id);
+//        if(status == 1 ){
+//            return "islem basarılı";
+//
+//        }
+//        return "islem basarısız";
+//    }
