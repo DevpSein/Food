@@ -11,6 +11,8 @@ public interface IFoodService {
     List<FoodEntity> getAllList();
 
     FoodEntity createOrUpdate(FoodDto foodDto);
+
+    String deleteById (Long id) ;
 }
 //    List<Food> getList();
 //

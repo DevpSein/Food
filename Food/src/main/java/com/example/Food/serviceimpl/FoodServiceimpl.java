@@ -23,7 +23,7 @@ public class FoodServiceimpl implements IFoodService {
 
     @Override
     public List<FoodEntity> getAllList() {
-        return getAllList();
+        return foodDao.getAllList();
     }
 
     @Override
@@ -41,6 +41,12 @@ public class FoodServiceimpl implements IFoodService {
         return foodDao.createOrUpdate(foodEntity);
 
 
+    }
+
+    @Override
+    public String deleteById(Long id) {
+        int result = foodDao.removeById(id);
+        return result ==1?"Islem Basarili":"Islem Basarisiz";
     }
 }
 //    @Override

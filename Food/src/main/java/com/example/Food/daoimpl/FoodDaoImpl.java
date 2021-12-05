@@ -31,6 +31,12 @@ public class FoodDaoImpl implements IFoodDao {
 
         return repository.findById(id).get();
     }
+
+    @Override
+    public int removeById(Long id) {
+        repository.deleteById(id);
+        return 1;
+    }
 }
 //    public static List<Food> foods = new ArrayList<>();
 //    public static int i = 0 ;

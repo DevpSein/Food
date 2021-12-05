@@ -20,7 +20,14 @@ public class FoodController {
     @RequestMapping(value = "createOrUpdate", method = RequestMethod.POST)
     public FoodEntity create(@RequestBody FoodDto foodDto) {
         return foodService.createOrUpdate(foodDto);
-
+    }
+    @RequestMapping(value = "allList",method = RequestMethod.GET)
+    public List<FoodEntity> getAllList(){
+        return foodService.getAllList();
+    }
+    @RequestMapping(value ="{id}",method = RequestMethod.DELETE)
+    public String delete(@PathVariable Long id){
+            return   foodService.deleteById(id);
     }
 }
 
