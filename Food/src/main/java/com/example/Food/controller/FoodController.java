@@ -7,14 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
-// Controller katmanında
+// Controller katmanında clientle haberleşme
 @RestController
 @RequestMapping(value = "/api/food",produces = "application/json")
 
 public class FoodController {
     //test
     @Qualifier("foodServiceimpl")
-    @Autowired
+    @Autowired // Autowired bir bean yönetimidir.Spring konfigürasyon dosyasında birden fazla değer atama yaparsak spring bu tanımlamalardan hangisinin kullnaılacağına qualifer anatosyonu ile karar verir.
     private IFoodService foodService;
 
     @RequestMapping(value = "createOrUpdate", method = RequestMethod.POST)

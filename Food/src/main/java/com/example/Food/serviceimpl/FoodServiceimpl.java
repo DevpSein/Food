@@ -1,9 +1,12 @@
 package com.example.Food.serviceimpl;
 
+import com.example.Food.dao.IAuthDao;
 import com.example.Food.dao.IFoodDao;
 import com.example.Food.entity.FoodEntity;
+import com.example.Food.entity.UserEntity;
 import com.example.Food.model.Food;
 import com.example.Food.model.dto.FoodDto;
+import com.example.Food.service.IAuthService;
 import com.example.Food.service.IFoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,6 +22,9 @@ import java.util.List;
 public class FoodServiceimpl implements IFoodService {
     @Autowired
     private IFoodDao foodDao;
+
+    @Autowired
+    private IAuthDao authDao;
 
 
     @Override
@@ -38,6 +44,9 @@ public class FoodServiceimpl implements IFoodService {
         foodEntity.setTitle(foodDto.getTitle());
         foodEntity.setDescription(foodDto.getDescription());
         foodEntity.setFoodDetails(foodDto.getFoodDetails());
+
+        UserEntity currentUser = authDao.getByUserId(foodDto.getUserId());
+        foodEntity.setUser(currentUser);
         return foodDao.createOrUpdate(foodEntity);
 
 
